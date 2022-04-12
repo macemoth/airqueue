@@ -1,4 +1,4 @@
-package ch.unisg.airqueue.booking.messages;
+package ch.unisg.airqueue.payment.messages;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -8,7 +8,7 @@ import java.util.UUID;
 public class Message<T> {
     private String type;
     private String id;
-    private String source = "Booking";
+    private String source = "Payment";
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Instant time;
     private T data;
@@ -49,5 +49,8 @@ public class Message<T> {
         return traceId;
     }
 
+    public T getData() {
+        return data;
+    }
 
 }
