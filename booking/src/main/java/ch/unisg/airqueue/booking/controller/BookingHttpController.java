@@ -5,18 +5,23 @@ import ch.unisg.airqueue.booking.domain.Customer;
 import ch.unisg.airqueue.booking.domain.Ticket;
 import ch.unisg.airqueue.booking.messages.Message;
 import ch.unisg.airqueue.booking.messages.MessageSender;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ch.unisg.airqueue.booking.utils.WorkflowLogger;
 
 @RestController
 public class BookingHttpController {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private MessageSender sender;
 
     @RequestMapping(path = "/booking", method = RequestMethod.PUT)
     public String bookTicket(@RequestParam("flightNumber") String flightNumber){
-        System.out.println(flightNumber);
+        WorkflowLogger.info(logger, "flightNumber", flightNumber);
         Customer customer = new Customer("Maximilian", "maximilian@familyoffice.uk");
         Ticket ticket = new Ticket(flightNumber);
         Booking booking = new Booking(customer, ticket);
