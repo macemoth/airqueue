@@ -20,10 +20,11 @@ public class BookingHttpController {
     private MessageSender sender;
 
     @RequestMapping(path = "/booking", method = RequestMethod.PUT)
-    public String bookTicket(@RequestParam("flightNumber") String flightNumber){
-        WorkflowLogger.info(logger, "flightNumber", flightNumber);
+    public String bookTicket(@RequestParam("startPort") String startPort,
+                             @RequestParam("destinationPort") String destinationPort){
+        System.out.println(startPort + ", " + destinationPort);
         Customer customer = new Customer("Maximilian", "maximilian@familyoffice.uk");
-        Ticket ticket = new Ticket(flightNumber);
+        Ticket ticket = new Ticket(startPort, destinationPort);
         Booking booking = new Booking(customer, ticket);
 
         Message<Booking> message = new Message<>("BookingEvent", booking);

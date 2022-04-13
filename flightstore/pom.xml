@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ch.unisg.airqueue</groupId>
-    <artifactId>booking</artifactId>
+    <artifactId>flightstore</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
 
@@ -93,7 +93,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.0.0</version>
                 <configuration>
-                    <mainClass>ch.unisg.airqueue.booking.BookingApplication</mainClass>
+                    <mainClass>ch.unisg.airqueue.flightstore.FlightstoreApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>
