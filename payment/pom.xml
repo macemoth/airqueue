@@ -26,6 +26,13 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.camunda.bpm</groupId>
+                <artifactId>camunda-bom</artifactId>
+                <version>${camunda.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-stream-dependencies</artifactId>
                 <version>${spring-cloud-stream.version}</version>
@@ -49,6 +56,21 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-stream-kafka</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
+            <version>${camunda.spring.boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
+            <!--
+                Adjust if you want to use Enterprise Edition of Camunda:
+                <artifactId>camunda-bpm-spring-boot-starter-webapp-ee</artifactId>
+                Make sure you also use an EE version of Camunda - see above
+            -->
+            <version>${camunda.spring.boot.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -86,6 +108,14 @@
 
     </dependencies>
 
+    <repositories>
+        <repository>
+            <id>camunda-bpm-nexus</id>
+            <name>Camunda BPM Maven Repository</name>
+            <url>https://app.camunda.com/nexus/content/groups/public</url>
+        </repository>
+    </repositories>
+
     <build>
         <plugins>
             <plugin>
@@ -93,7 +123,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.0.0</version>
                 <configuration>
-                    <mainClass>ch.unisg.airqueue.ticketorder.OrderApplication</mainClass>
+                    <mainClass>ch.unisg.airqueue.payment.PaymentApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>
