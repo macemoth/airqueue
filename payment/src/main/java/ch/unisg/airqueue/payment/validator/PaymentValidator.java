@@ -15,7 +15,6 @@ import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.stereotype.Component;
 import ch.unisg.airqueue.payment.utils.WorkflowLogger;
 
-
 import javax.transaction.Transactional;
 import java.util.Random;
 
