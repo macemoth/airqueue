@@ -3,11 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>ch.unisg.airqueue</groupId>
-    <artifactId>payment</artifactId>
+    <artifactId>orchestrator</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-
 
     <properties>
         <maven.compiler.release>8</maven.compiler.release>
@@ -80,6 +78,14 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm</groupId>
+            <artifactId>camunda-engine-plugin-spin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.spin</groupId>
+            <artifactId>camunda-spin-dataformat-all</artifactId>
+        </dependency>
 
         <!-- Persistence for order entity itself -->
         <dependency>
@@ -105,7 +111,26 @@
             <version>1.7.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm.extension</groupId>
+            <artifactId>camunda-bpm-assert-scenario</artifactId>
+            <version>0.2</version>
+            <scope>test</scope>
+        </dependency>
 
+        <dependency>
+            <groupId>org.camunda.bpm.extension</groupId>
+            <artifactId>camunda-bpm-assert</artifactId>
+            <version>2.0-alpha1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.camunda.bpm.extension</groupId>
+            <artifactId>camunda-bpm-process-test-coverage</artifactId>
+            <version>0.3.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <repositories>
@@ -114,8 +139,15 @@
             <name>Camunda BPM Maven Repository</name>
             <url>https://app.camunda.com/nexus/content/groups/public</url>
         </repository>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
     </repositories>
-
     <build>
         <plugins>
             <plugin>
@@ -123,7 +155,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.0.0</version>
                 <configuration>
-                    <mainClass>ch.unisg.airqueue.payment.PaymentApplication</mainClass>
+                    <mainClass>ch.unisg.airqueue.ticketorder.OrderApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>

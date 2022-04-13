@@ -3,14 +3,19 @@ package ch.unisg.airqueue.payment.controller;
 import ch.unisg.airqueue.payment.domain.Transaction;
 import ch.unisg.airqueue.payment.messages.Message;
 import ch.unisg.airqueue.payment.messages.MessageSender;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ch.unisg.airqueue.payment.utils.WorkflowLogger;
 
 @RestController
 public class PaymentHttpController {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private MessageSender sender;
@@ -18,7 +23,7 @@ public class PaymentHttpController {
     @RequestMapping(path = "/payment", method = RequestMethod.PUT)
     public ResponseEntity<String> bookTicket(@RequestParam("bookingId") String bookingId,
                                              @RequestParam("amount") int amount){
-        System.out.println(bookingId + " received from PaymentHttpController");
+        WorkflowLogger.info(logger, "payment received", bookingId + " from PaymentHttpController");
 
         Transaction transaction = new Transaction(bookingId, amount);
 
