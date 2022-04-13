@@ -1,4 +1,4 @@
-package ch.unisg.notification.email;
+package ch.unisg.airqueue.notification.email;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

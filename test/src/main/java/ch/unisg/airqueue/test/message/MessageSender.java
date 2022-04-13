@@ -1,6 +1,5 @@
-package ch.unisg.airqueue.notification;
+package ch.unisg.airqueue.test.message;
 
-import ch.unisg.airqueue.notification.messages.Message;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
