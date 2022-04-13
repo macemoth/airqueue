@@ -93,7 +93,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.0.0</version>
                 <configuration>
-                    <mainClass>ch.unisg.airqueue.ticketorder.OrderApplication</mainClass>
+                    <mainClass>ch.unisg.airqueue.flightstore.FlightstoreApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>

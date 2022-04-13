@@ -1,12 +1,11 @@
 package ch.unisg.notification.Messages;
 
 import ch.unisg.notification.email.EmailSender;
-import ch.unisg.notification.utils.NotificationLogger;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -19,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @EnableBinding(Sink.class)
 public class MessageListener {
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger LOGGER = LogManager.getLogger(this.getClass());
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -32,7 +31,7 @@ public class MessageListener {
     public void receiveMessage(String messageJson) throws JsonProcessingException {
         Message<NotificationEvent> message = objectMapper.readValue(messageJson, new TypeReference<Message<NotificationEvent>>() {});
         NotificationEvent notification = message.getData();
-        NotificationLogger.info(logger, "Message Listener", "Received Notification");
+        LOGGER.info("Received notification event" + notification.toString());
 
         emailSender.sendEmail(notification.getReceiverEmailAddress(), "airqueue Notification", notification.getContent());
         // add further notification methods here

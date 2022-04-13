@@ -1,8 +1,7 @@
 package ch.unisg.notification.email;
 
-import ch.unisg.notification.utils.NotificationLogger;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Component;
@@ -12,7 +11,7 @@ import java.util.Properties;
 @Component
 public class EmailSender {
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger LOGGER = LogManager.getLogger(this.getClass());
 
     private JavaMailSenderImpl mailSender;
 
@@ -41,7 +40,7 @@ public class EmailSender {
         email.setFrom(SENDER_ADDRESS);
         email.setReplyTo(REPLY_ADDRESS);
         mailSender.send(email);
-        NotificationLogger.info(logger, "Notification Email", "Email successfully sent to " + recipient);
+        LOGGER.info("Email successfully sent to " + recipient);
     }
 
 
