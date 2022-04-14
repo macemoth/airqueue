@@ -1,6 +1,5 @@
-package ch.unisg.airqueue.notification.messages;
+package ch.unisg.airqueue.payment.messages;
 
-import ch.unisg.airqueue.notification.email.EmailSender;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,23 +23,19 @@ public class MessageListener {
     private ObjectMapper objectMapper;
 
     @Autowired
-    private EmailSender emailSender;
-
-    @Autowired
     private MessageSender messageSender;
 
-    @StreamListener(target = Sink.INPUT, condition = "(headers['type']?:'')=='NotificationCommand'")
+    @StreamListener(target = Sink.INPUT, condition = "(headers['type']?:'')=='GetPaymentCommand'")
     @Transactional
     public void receiveMessage(String messageJson) throws JsonProcessingException {
-        Message<NotificationCommand> message = objectMapper.readValue(messageJson, new TypeReference<Message<NotificationCommand>>() {});
-        NotificationCommand notification = message.getData();
-        LOGGER.info("Received notification event" + notification.toString());
+        Message<GetPaymentCommand> message = objectMapper.readValue(messageJson, new TypeReference<Message<GetPaymentCommand>>() {});
+        GetPaymentCommand command = message.getData();
+        LOGGER.info("Received GetPaymentCommand" + command.getBookingId());
 
-        emailSender.sendEmail(notification.getReceiverEmailAddress(), "airqueue Notification", notification.getContent());
-        // add further notification methods here
+        // TODO: add payment validation logic
 
-        NotificationSentEvent event = new NotificationSentEvent(notification.getBookingId(), notification.getReceiverEmailAddress());
-        messageSender.send(new Message<>("NotificationSentEvent", message.getTraceId(), event));
+        PaymentDoneEvent event = new PaymentDoneEvent(command.getBookingId());
+        messageSender.send(new Message<>("PaymentDoneEvent", message.getTraceId(), event));
     }
 
 }

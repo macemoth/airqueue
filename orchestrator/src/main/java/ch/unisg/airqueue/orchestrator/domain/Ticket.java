@@ -33,15 +33,46 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return "Ticket [flightNumber=" + flightNumber + ", startPort=" + startPort + ", destinationPort=" + destinationPort +"]";
+        return "Ticket [flightNumber=" + flightNumber + ", startPort=" + startPort + ", destinationPort=" + destinationPort + "]";
+    }
+
+    public String getTicketId() {
+        return ticketId;
+    }
+
+    public void setTicketId(String ticketId) {
+        this.ticketId = ticketId;
     }
 
     public String getFlightNumber() {
         return flightNumber;
     }
 
+    public void setFlightNumber(String flightNumber) {
+        this.flightNumber = flightNumber;
+    }
+
     public LocalDate getDate() {
         return date;
     }
 
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public String getStartPort() {
+        return startPort;
+    }
+
+    public void setStartPort(String startPort) {
+        this.startPort = startPort;
+    }
+
+    public String getDestinationPort() {
+        return destinationPort;
+    }
+
+    public void setDestinationPort(String destinationPort) {
+        this.destinationPort = destinationPort;
+    }
 }

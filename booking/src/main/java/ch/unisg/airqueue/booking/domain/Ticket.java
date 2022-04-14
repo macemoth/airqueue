@@ -1,5 +1,6 @@
 package ch.unisg.airqueue.booking.domain;
 
+
 import java.time.LocalDate;
 import java.util.Random;
 
@@ -18,22 +19,43 @@ public class Ticket {
         this.destinationPort = destinationPort;
     }
 
-    public Ticket(String flightNumber) {
-        this.flightNumber = flightNumber;
-        this.date = LocalDate.now();
+    public Ticket() {
     }
 
     @Override
     public String toString() {
-        return "Ticket with flight number " + flightNumber + " for " + date.toString();
+        return "Ticket [flightNumber=" + flightNumber + ", startPort=" + startPort + ", destinationPort=" + destinationPort + "]";
     }
 
     public String getFlightNumber() {
         return flightNumber;
     }
 
+    public void setFlightNumber(String flightNumber) {
+        this.flightNumber = flightNumber;
+    }
+
     public LocalDate getDate() {
         return date;
     }
 
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public String getStartPort() {
+        return startPort;
+    }
+
+    public void setStartPort(String startPort) {
+        this.startPort = startPort;
+    }
+
+    public String getDestinationPort() {
+        return destinationPort;
+    }
+
+    public void setDestinationPort(String destinationPort) {
+        this.destinationPort = destinationPort;
+    }
 }

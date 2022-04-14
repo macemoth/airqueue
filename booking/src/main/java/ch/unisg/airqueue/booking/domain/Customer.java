@@ -10,6 +10,9 @@ public class Customer {
         this.email = email;
     }
 
+    public Customer() {
+    }
+
     public String getName() {
         return name;
     }
@@ -20,5 +23,14 @@ public class Customer {
 
     public String getEmail() {
         return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer [name = " + name + " + email=" + email + "]";
     }
 }

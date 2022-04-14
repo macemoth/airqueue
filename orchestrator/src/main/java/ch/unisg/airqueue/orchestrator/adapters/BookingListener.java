@@ -5,10 +5,12 @@ import ch.unisg.airqueue.orchestrator.messages.Message;
 import ch.unisg.airqueue.orchestrator.persistence.BookingRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.camunda.bpm.engine.ProcessEngine;
+import org.camunda.spin.plugin.variable.SpinValues;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -49,6 +51,32 @@ public class BookingListener {
                     .correlateWithResult();
         } catch (JsonProcessingException e) {
             LOGGER.error("Cannot parse incoming message " + jsonMessage + "Exception: " + e.getMessage());
+        }
+
+    }
+
+    @StreamListener(target = Sink.INPUT,
+            condition="(headers['type']?:'').endsWith('Event')")
+    @Transactional
+    public void messageReceived(String messageJson) throws Exception {
+        Message<JsonNode> message = objectMapper.readValue( //
+                messageJson, //
+                new TypeReference<Message<JsonNode>>() {});
+
+        long correlatingInstances = camunda.getRuntimeService().createExecutionQuery() //
+                .messageEventSubscriptionName(message.getType()) //
+                .processInstanceBusinessKey(message.getTraceId()) //
+                .count();
+
+        if (correlatingInstances==1) {
+            System.out.println("Correlating " + message + " to waiting flow instance");
+
+            camunda.getRuntimeService().createMessageCorrelation(message.getType())
+                    .processInstanceBusinessKey(message.getTraceId())
+                    .setVariable(//
+                            "PAYLOAD_" + message.getType(), //
+                            SpinValues.jsonValue(message.getData().toString()).create())//
+                    .correlateWithResult();
         }
 
     }

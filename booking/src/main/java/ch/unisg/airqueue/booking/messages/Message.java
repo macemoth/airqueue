@@ -36,6 +36,10 @@ public class Message<T> {
         time = Instant.now();
     }
 
+    public Message() {
+
+    }
+
     @Override
     public String toString() {
         return "Message [type=" + type + ", id=" + id + ", time=" + time + ", data=" + data + ", correlationid=" + correlationid + ", traceid=" + traceId + "]";
@@ -45,9 +49,79 @@ public class Message<T> {
         return type;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public Instant getTime() {
+        return time;
+    }
+
+    public void setTime(Instant time) {
+        this.time = time;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    public String getDatacontettype() {
+        return datacontettype;
+    }
+
+    public void setDatacontettype(String datacontettype) {
+        this.datacontettype = datacontettype;
+    }
+
+    public String getSpecversion() {
+        return specversion;
+    }
+
+    public void setSpecversion(String specversion) {
+        this.specversion = specversion;
+    }
+
     public String getTraceId() {
         return traceId;
     }
 
+    public void setTraceId(String traceId) {
+        this.traceId = traceId;
+    }
 
+    public String getCorrelationid() {
+        return correlationid;
+    }
+
+    public void setCorrelationid(String correlationid) {
+        this.correlationid = correlationid;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
+    }
 }
