@@ -1,10 +1,20 @@
 package ch.unisg.airqueue.orchestrator.domain;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDate;
 import java.util.Random;
 
+@Entity
 public class Ticket {
 
+    @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    private String ticketId;
     private String flightNumber;
     private LocalDate date;
     private String startPort;
@@ -21,11 +31,9 @@ public class Ticket {
     public Ticket() {
     }
 
-
-
     @Override
     public String toString() {
-        return "Ticket with flight number " + flightNumber + " for " + date.toString();
+        return "Ticket [flightNumber=" + flightNumber + ", startPort=" + startPort + ", destinationPort=" + destinationPort +"]";
     }
 
     public String getFlightNumber() {
