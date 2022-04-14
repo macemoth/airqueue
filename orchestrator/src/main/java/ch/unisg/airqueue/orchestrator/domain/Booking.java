@@ -1,12 +1,19 @@
-package ch.unisg.airqueue.booking.domain;
+package ch.unisg.airqueue.orchestrator.domain;
 
+import javax.persistence.*;
 import java.util.UUID;
 
+@Entity(name="OrderEntity")
 public class Booking {
 
-    private String bookingId;
-    private Customer customer;
-    private Ticket ticket;
+    // TODO: perhaps we have to rename to id instead of bookingId
+    // TODO: add real consumer and ticket
+    @Id
+    protected String bookingId;
+    @OneToOne(cascade= CascadeType.ALL, fetch = FetchType.EAGER)
+    protected Customer customer = new Customer();
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    protected Ticket ticket = new Ticket();
 
     public Booking(Customer customer, Ticket ticket) {
         this.customer = customer;

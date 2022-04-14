@@ -26,15 +26,21 @@ public class MessageListener {
     @Autowired
     private EmailSender emailSender;
 
+    @Autowired
+    private MessageSender messageSender;
+
     @StreamListener(target = Sink.INPUT, condition = "(headers['type']?:'')=='NotificationEvent'")
     @Transactional
     public void receiveMessage(String messageJson) throws JsonProcessingException {
-        Message<NotificationEvent> message = objectMapper.readValue(messageJson, new TypeReference<Message<NotificationEvent>>() {});
-        NotificationEvent notification = message.getData();
+        Message<NotificationCommand> message = objectMapper.readValue(messageJson, new TypeReference<Message<NotificationCommand>>() {});
+        NotificationCommand notification = message.getData();
         LOGGER.info("Received notification event" + notification.toString());
 
         emailSender.sendEmail(notification.getReceiverEmailAddress(), "airqueue Notification", notification.getContent());
         // add further notification methods here
+
+        NotificationSentEvent event = new NotificationSentEvent(notification.getBookingId(), notification.getReceiverEmailAddress());
+        messageSender.send(new Message<>("NotificationSentEvent", message.getTraceId(), event));
     }
 
 }
