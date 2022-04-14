@@ -83,6 +83,18 @@
             <version>1.7.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm</groupId>
+            <artifactId>camunda-engine</artifactId>
+            <version>7.12.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.unisg.airqueue</groupId>
+            <artifactId>payment</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 

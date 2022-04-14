@@ -105,6 +105,20 @@
             <version>1.7.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>ch.unisg.airqueue</groupId>
+            <artifactId>booking</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm</groupId>
+            <artifactId>camunda-engine-plugin-spin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm</groupId>
+            <artifactId>camunda-engine-plugin-spin</artifactId>
+        </dependency>
 
     </dependencies>
 

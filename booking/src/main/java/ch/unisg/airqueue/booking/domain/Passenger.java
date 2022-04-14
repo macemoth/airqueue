@@ -1,11 +1,14 @@
 package ch.unisg.airqueue.booking.domain;
 
-public class Customer {
+public class Passenger {
 
     private String name;
     private String email;
 
-    public Customer(String name, String email) {
+    public Passenger() {
+    }
+
+    public Passenger(String name, String email) {
         this.name = name;
         this.email = email;
     }
@@ -20,5 +23,12 @@ public class Customer {
 
     public String getEmail() {
         return email;
+    }
+
+    public void setEmail(String email) { this.email = email; }
+
+    @Override
+    public String toString() {
+        return "Passenger [name=" + name + ",email=" + email + "]";
     }
 }

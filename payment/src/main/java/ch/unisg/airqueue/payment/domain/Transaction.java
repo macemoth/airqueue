@@ -17,4 +17,16 @@ public class Transaction {
     public String getBookingId() {
         return bookingId;
     }
+
+    public void setBookingId(String bookingId) {
+        this.bookingId = bookingId;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 }
