@@ -10,6 +10,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.regex.Pattern;
+
 @RestController
 public class BookingHttpController {
 
@@ -20,9 +22,10 @@ public class BookingHttpController {
 
     @RequestMapping(path = "/booking", method = RequestMethod.PUT)
     public String bookTicket(@RequestParam("startPort") String startPort,
-                             @RequestParam("destinationPort") String destinationPort){
-        LOGGER.info("Received Booking from " + startPort + " to " + destinationPort);
-        Customer customer = new Customer("Maximilian", "maximilian@familyoffice.uk");
+                             @RequestParam("destinationPort") String destinationPort,
+                             @RequestParam("email") String email){
+        LOGGER.info("Received Booking from " + startPort + " to " + destinationPort + " with email " + email);
+        Customer customer = new Customer("Maximilian", email);
         Ticket ticket = new Ticket(startPort, destinationPort);
         Booking booking = new Booking(customer, ticket);
 
