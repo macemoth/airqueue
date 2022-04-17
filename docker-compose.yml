@@ -31,6 +31,8 @@ services:
       KAFKA_ADVERTISED_PORT: 9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       ALLOW_PLAINTEXT_LISTENER: "yes"
+    depends_on:
+      - zookeeper
 
 networks:
   flowing:

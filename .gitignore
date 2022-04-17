@@ -4,6 +4,7 @@
 */target/
 
 .idea/
+*.db
 # Compiled class file
 *.class
 

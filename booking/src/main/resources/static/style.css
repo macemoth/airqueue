@@ -1,0 +1,43 @@
+body {
+	padding: 0;
+	margin: 0;
+	color: #000;
+    background: url(background.png) no-repeat center top;
+    background-size: cover;
+    width: 100%;
+    display: table;
+    font-family: helvetica;
+}
+
+#title {
+	width: 35%;
+	margin: 20px auto;
+	padding: 20px;
+	font-family: monospace, Comic Sans MS;
+	font-size: 60px;
+	color: #1ecbe1;
+	text-align: center;
+}
+
+#content {
+	width: 35%;
+	margin: 205px auto 0;
+	background: #fff;
+	border: solid 1px #ccc;
+	padding: 20px;
+}
+
+#response {
+    padding: 10px;
+}
+
+#footer {
+    width: 35%;
+    margin: 20px auto;
+    padding: 20px;
+    position: bottom:0;
+    font-family: monospace, Comic Sans MS;
+    font-size: 20px;
+    color: #1ecbe1;
+    text-align: center;
+}
