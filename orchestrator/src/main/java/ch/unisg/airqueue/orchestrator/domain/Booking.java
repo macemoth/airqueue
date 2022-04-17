@@ -11,9 +11,9 @@ public class Booking {
     @Id
     protected String bookingId;
     @OneToOne(cascade= CascadeType.ALL, fetch = FetchType.EAGER)
-    protected Customer customer = new Customer();
+    protected Customer customer;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    protected Ticket ticket = new Ticket();
+    protected Ticket ticket;
 
     public Booking(Customer customer, Ticket ticket) {
         this.customer = customer;

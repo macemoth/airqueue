@@ -28,9 +28,9 @@ public class NotificationAdapter implements JavaDelegate {
         Booking booking = bookingRepository.findById((String) execution.getVariable("bookingId")).get();
         String traceId = execution.getProcessBusinessKey();
 
-        // TODO: fetch customer e-mail to send to appropriate customer
-        String customerEmail = "marcesoler@sns.network";
-        String content = "Your booking " + booking.getBookingId() + " was reserved successfully. Thank you for flying with airqueue";
+        String customerEmail = booking.getCustomer().getEmail();
+        String content = "Your booking " + booking.getBookingId() + " was reserved successfully. Thank you for flying with airqueue" +
+                "\ntrace ID: " + traceId;
         NotificationCommand command = new NotificationCommand(content, booking.getBookingId(), customerEmail);
         messageSender.send(new Message<NotificationCommand>("NotificationCommand", traceId, command));
     }
