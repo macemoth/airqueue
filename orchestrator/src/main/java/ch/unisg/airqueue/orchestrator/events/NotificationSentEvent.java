@@ -1,4 +1,4 @@
-package ch.unisg.airqueue.orchestrator.messages;
+package ch.unisg.airqueue.orchestrator.events;
 
 public class NotificationSentEvent {
 

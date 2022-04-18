@@ -1,13 +1,13 @@
-package ch.unisg.airqueue.orchestrator.messages;
+package ch.unisg.airqueue.orchestrator.events;
 
-public class BookingDoneEvent {
+public class PaymentDoneEvent {
     private String bookingId;
 
-    public BookingDoneEvent(String bookingId) {
+    public PaymentDoneEvent(String bookingId) {
         this.bookingId = bookingId;
     }
 
-    public BookingDoneEvent() {
+    public PaymentDoneEvent() {
     }
 
     public String getBookingId() {
@@ -20,6 +20,6 @@ public class BookingDoneEvent {
 
     @Override
     public String toString() {
-        return "BookingDoneEvent [bookingId=" + bookingId + "]";
+        return "PaymentDoneEvent [bookingId=" + bookingId + "]";
     }
 }

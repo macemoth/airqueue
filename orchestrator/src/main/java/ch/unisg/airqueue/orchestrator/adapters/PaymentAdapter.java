@@ -2,7 +2,7 @@ package ch.unisg.airqueue.orchestrator.adapters;
 
 import ch.unisg.airqueue.orchestrator.domain.Booking;
 import ch.unisg.airqueue.orchestrator.domain.Ticket;
-import ch.unisg.airqueue.orchestrator.messages.GetPaymentCommand;
+import ch.unisg.airqueue.orchestrator.commands.GetPaymentCommand;
 import ch.unisg.airqueue.orchestrator.messages.Message;
 import ch.unisg.airqueue.orchestrator.messages.MessageSender;
 import ch.unisg.airqueue.orchestrator.persistence.BookingRepository;
