@@ -33,17 +33,12 @@
       <bpmn:outgoing>SequenceFlowPaymentApprovedNo</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlowPaymentApprovedYes</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:task id="Activity_1trspk5" name="Notify passenger on error">
-      <bpmn:incoming>SequenceFlowPaymentApprovedNo</bpmn:incoming>
-      <bpmn:outgoing>Flow_1fbsfv7</bpmn:outgoing>
-    </bpmn:task>
-    <bpmn:sequenceFlow id="SequenceFlowPaymentApprovedNo" name="No" sourceRef="Gateway_0fzy0z5" targetRef="Activity_1trspk5">
+    <bpmn:sequenceFlow id="SequenceFlowPaymentApprovedNo" name="No" sourceRef="Gateway_0fzy0z5" targetRef="Activity_0hc25j5">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!paymentApproval}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:endEvent id="Event_0656vio" name="Booking cancelled">
-      <bpmn:incoming>Flow_1fbsfv7</bpmn:incoming>
+      <bpmn:incoming>Flow_14m4h4h</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_1fbsfv7" sourceRef="Activity_1trspk5" targetRef="Event_0656vio" />
     <bpmn:sequenceFlow id="SequenceFlowPaymentApprovedYes" name="Yes" sourceRef="Gateway_0fzy0z5" targetRef="Task_08fl4d5">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${paymentApproval}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
@@ -51,9 +46,27 @@
     <bpmn:sequenceFlow id="Flow_0fdaz5f" sourceRef="Activity_0g7toda" targetRef="Gateway_0fzy0z5" />
     <bpmn:serviceTask id="Activity_0g7toda" name="Get payment approval status" camunda:delegateExpression="#{PaymentApprovalAdapter}">
       <bpmn:incoming>Flow_17tdik8</bpmn:incoming>
+      <bpmn:incoming>Flow_1gx7ws8</bpmn:incoming>
       <bpmn:outgoing>Flow_0fdaz5f</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_0t0n95d" sourceRef="Task_08fl4d5" targetRef="Task_0eq284s" />
+    <bpmn:boundaryEvent id="Event_0rtsnfb" name="1 Day" attachedToRef="Activity_0hc25j5">
+      <bpmn:outgoing>Flow_14m4h4h</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_0j6h99y">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P1D</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:boundaryEvent>
+    <bpmn:sequenceFlow id="Flow_14m4h4h" sourceRef="Event_0rtsnfb" targetRef="Event_0656vio" />
+    <bpmn:sequenceFlow id="Flow_1gx7ws8" sourceRef="Activity_0hc25j5" targetRef="Activity_0g7toda" />
+    <bpmn:userTask id="Activity_0hc25j5" name="Wait for customer to apply for approval status" camunda:formKey="">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="reapplyApproval" label="Do you want to reapply for payment approval?" type="boolean" defaultValue="true" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlowPaymentApprovedNo</bpmn:incoming>
+      <bpmn:outgoing>Flow_1gx7ws8</bpmn:outgoing>
+    </bpmn:userTask>
   </bpmn:process>
   <bpmn:message id="Message_1ralz53" name="BookingEvent" />
   <bpmn:message id="Message_10bsjj4" name="PaymentDoneEvent" />
@@ -75,15 +88,11 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1vuc345_di" bpmnElement="SequenceFlowPaymentApprovedNo">
         <di:waypoint x="480" y="265" />
-        <di:waypoint x="480" y="380" />
-        <di:waypoint x="570" y="380" />
+        <di:waypoint x="480" y="330" />
+        <di:waypoint x="570" y="330" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="532" y="363" width="15" height="14" />
+          <dc:Bounds x="532" y="313" width="15" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1fbsfv7_di" bpmnElement="Flow_1fbsfv7">
-        <di:waypoint x="670" y="380" />
-        <di:waypoint x="722" y="380" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_161fwn7_di" bpmnElement="SequenceFlowPaymentApprovedYes">
         <di:waypoint x="480" y="215" />
@@ -105,19 +114,20 @@
         <di:waypoint x="670" y="120" />
         <di:waypoint x="740" y="120" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14m4h4h_di" bpmnElement="Flow_14m4h4h">
+        <di:waypoint x="670" y="388" />
+        <di:waypoint x="670" y="422" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1gx7ws8_di" bpmnElement="Flow_1gx7ws8">
+        <di:waypoint x="620" y="370" />
+        <di:waypoint x="620" y="410" />
+        <di:waypoint x="350" y="410" />
+        <di:waypoint x="350" y="280" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
         <dc:Bounds x="162" y="222" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="155" y="258" width="52" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1trspk5_di" bpmnElement="Activity_1trspk5">
-        <dc:Bounds x="570" y="340" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0656vio_di" bpmnElement="Event_0656vio">
-        <dc:Bounds x="722" y="362" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="695" y="405" width="90" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_15xstqh_di" bpmnElement="EndEvent_15xstqh">
@@ -146,6 +156,21 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_1dqo5e8_di" bpmnElement="Task_1dqo5e8">
         <dc:Bounds x="1060" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0656vio_di" bpmnElement="Event_0656vio">
+        <dc:Bounds x="652" y="422" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="625" y="468" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0p307u4_di" bpmnElement="Activity_0hc25j5">
+        <dc:Bounds x="570" y="290" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0838xyv_di" bpmnElement="Event_0rtsnfb">
+        <dc:Bounds x="652" y="352" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="698" y="363" width="30" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
