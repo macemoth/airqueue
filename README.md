@@ -14,25 +14,29 @@
       jgs    /_____,'
 ```
 
-## Patterns and suggestions from exercises
+## Running Instructions
 
-### Exercise 2 (at least one)
-- Event notification: add a notification service for the flowing retail example which sends emails to inform customers about relevant progress in the process.
-- Event-carried state transfer: extend the checkout service such that the checkout service is aware of the available stock. This requires to keep a copy of the data at the checkout and to keep this data updated (e.g., using one of the eventually consistency pattern like event-based synchronization).
+1. `git clone` this project
 
-### Exercise 3
+2. Open in your IDE (we use IntelliJ), if necessary import microservices **booking**, **notification**, **orchestrator** and **payment-mono**
+as Maven projects by right-clicking the `pom.xml` of the respective microservice.
 
-No explicit indication.  Suggestion to use Camunda BPM.
+3. `cd` into root folder and run `docker-compose up`.
 
-### Exercise 4
+4. Start the microservices in your IDE. We use the following sequence:
+    1. booking
+    2. orchestrator
+    3. payment-mono
+    4. notification
+    
+5. Open [localhost:8091](http://localhost:8091), submit a start, a destination (no specific input required)
+and your e-mail-address.
+   
+To look at the Camunda Cockpit, open [localhost:8092](http://localhost:8092).
 
-Look at for a pure choreography approach. Suggestion do balance commands and events. No explicit indication of patterns.
+## Troubleshooting
 
-### Exercise 5
-
-Stateful resilience patterns ([Netflix Hystrix](https://github.com/Netflix/Hystrix)), suggestion to use one or several of:
-- Stateful retry
-- Human intervention
-- Outbox and Saga patterns
-
-No transactions required, eventual consistency and events are ok.
+- Class not found error: Run `maven clean`, and then `maven compile`or higher. Run the service again.
+- Database errors: Delete `.db` files at the root directory
+- Unresolved dependencies: Use the *Reload Maven Dependencies* function of IntelliJ, reimport the Maven project or delete
+the `.iml` file of the microservice and then reimport the Maven project.
