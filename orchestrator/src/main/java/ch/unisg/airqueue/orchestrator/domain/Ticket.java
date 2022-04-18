@@ -19,6 +19,8 @@ public class Ticket {
     private LocalDate date;
     private String startPort;
     private String destinationPort;
+    private int ticketCost;
+
 
     public Ticket(String startPort, String destinationPort) {
         Random random = new Random();
@@ -75,4 +77,8 @@ public class Ticket {
     public void setDestinationPort(String destinationPort) {
         this.destinationPort = destinationPort;
     }
+
+    public int getTicketCost() { return ticketCost; }
+
+    public void setTicketCost(int ticketCost) { this.ticketCost = ticketCost; }
 }
