@@ -1,6 +1,8 @@
 package ch.unisg.airqueue.notification.messages;
 
+import ch.unisg.airqueue.notification.commands.NotificationCommand;
 import ch.unisg.airqueue.notification.email.EmailSender;
+import ch.unisg.airqueue.notification.events.NotificationSentEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

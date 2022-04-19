@@ -1,4 +1,4 @@
-package ch.unisg.airqueue.payment.messages;
+package ch.unisg.airqueue.payment.events;
 
 public class PaymentDoneEvent {
     private String bookingId;
