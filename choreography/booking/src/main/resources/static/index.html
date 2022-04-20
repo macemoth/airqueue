@@ -1,0 +1,66 @@
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Welcome to airqueue Choreography</title>
+</head>
+
+<body>
+    <div id="title">
+        <b>airqueue Choreography</b>
+    </div>
+
+    <div id="content">
+        <center>
+        <h1>Book flight</h1>
+            <script type="text/javascript">
+                function validateForm() {
+                    var startPort = document.getElementById("startPort").value;
+                    var destinationPort = document.getElementById("destinationPort").value;
+                    var email = document.getElementById("email").value;
+                    var validRegex = /\S+@\S+\.\S+/;
+                    if (!email.match(validRegex)) {
+                        alert("Please input a valid email!");
+                    } else {
+                        if (startPort == null || startPort.length == 0 || destinationPort == null || destinationPort.length == 0 ||
+                            email == null || email.length == 0) {
+                            alert("Form empty. In order to book a flight with airqueue please fill in the form!");
+                        } else {
+                            placeOrder();
+                        }
+                    }
+                }
+            </script>
+            <form name="form" id="form">
+                <label for="startPort">From:</label><br>
+                <input type="text" id="startPort" name="startPort"><br>
+                <label for="destinationPort">To:</label><br>
+                <input type="text" id="destinationPort" name="destinationPort"><br>
+                <label for="email">E-Mail:</label><br>
+                <input type="text" id="email" name="email"><br>
+            </form>
+            <button type="submit"
+                    class='input_submit'
+                    style="margin-right: 15px;"
+                    onClick="validateForm()">Book flight
+            </button>
+        <div id="response"></div>
+        </center>
+    </div>
+    <div id="footer">
+        (c) 2022 yasmarc
+    </div>
+</body>
+<script type="text/javascript">
+		function placeOrder() {
+		    query = $('form').serialize()
+			 $.ajax({
+              url: "./booking/?" + query,
+              type: "put",
+              data: {}
+          }).done(function(result) {
+            $('#response').html('Thank you for flying with airqueue. Your booking request has been recorded. Trace id: <b>' + JSON.parse(result).traceId + '</b>');
+          })
+		}
+	</script>
+<script src="jquery.js"></script>
+</html>
