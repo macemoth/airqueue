@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0fr9mxs" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+  <bpmn:process id="booking-process" isExecutable="true">
+    <bpmn:sequenceFlow id="SequenceFlow_1fp17al" sourceRef="StartEvent_1" targetRef="choose-flight" />
+    <bpmn:sequenceFlow id="Flow_1qpvzsm" sourceRef="Activity_1ptid0v" targetRef="Event_0et6g7f" />
+    <bpmn:endEvent id="Event_0et6g7f" name="Customer has flown">
+      <bpmn:incoming>Flow_1qpvzsm</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="choose-flight" name="Choose start and destination ports" camunda:formKey="" camunda:candidateUsers="demo">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="startPort" label="startPort" type="string" />
+          <camunda:formField id="destPort" label="destinationPort" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1fp17al</bpmn:incoming>
+      <bpmn:outgoing>Flow_12xvahb</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0a5pijq" sourceRef="Activity_0a8m8k4" targetRef="Activity_0e47168" />
+    <bpmn:serviceTask id="Activity_0e47168" name="Book a seat on flight" camunda:delegateExpression="#{reserveSeatOnFlight}">
+      <bpmn:incoming>Flow_0a5pijq</bpmn:incoming>
+      <bpmn:outgoing>Flow_09elr3b</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:boundaryEvent id="Event_1ggzm1c" attachedToRef="Activity_0e47168">
+      <bpmn:outgoing>Flow_0l8lo7p</bpmn:outgoing>
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_1t1x0na" errorRef="Error_1jwznxt" camunda:errorMessageVariable="Error_Message" />
+    </bpmn:boundaryEvent>
+    <bpmn:sequenceFlow id="Flow_0l8lo7p" sourceRef="Event_1ggzm1c" targetRef="Event_1yb1pkg" />
+    <bpmn:endEvent id="Event_1yb1pkg" name="Booking cancelled">
+      <bpmn:incoming>Flow_0l8lo7p</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_12xvahb" sourceRef="choose-flight" targetRef="Activity_0a8m8k4" />
+    <bpmn:userTask id="Activity_0a8m8k4" name="Choose budget" camunda:formKey="">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="budget" label="budget" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_12xvahb</bpmn:incoming>
+      <bpmn:outgoing>Flow_0a5pijq</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_09elr3b" sourceRef="Activity_0e47168" targetRef="Activity_1ptid0v" />
+    <bpmn:userTask id="Activity_1ptid0v" name="Fly to destination">
+      <bpmn:incoming>Flow_09elr3b</bpmn:incoming>
+      <bpmn:outgoing>Flow_1qpvzsm</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:startEvent id="StartEvent_1" name="Customer wants to book a flight">
+      <bpmn:outgoing>SequenceFlow_1fp17al</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_18usaxy" messageRef="Message_00ddak0" />
+    </bpmn:startEvent>
+  </bpmn:process>
+  <bpmn:error id="Error_1jwznxt" name="TooPoor" errorCode="TooPoor" />
+  <bpmn:message id="Message_00ddak0" name="MessageKafkaDemo" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="booking-process">
+      <bpmndi:BPMNEdge id="SequenceFlow_1fp17al_di" bpmnElement="SequenceFlow_1fp17al">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0a5pijq_di" bpmnElement="Flow_0a5pijq">
+        <di:waypoint x="540" y="117" />
+        <di:waypoint x="640" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1qpvzsm_di" bpmnElement="Flow_1qpvzsm">
+        <di:waypoint x="910" y="117" />
+        <di:waypoint x="982" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0l8lo7p_di" bpmnElement="Flow_0l8lo7p">
+        <di:waypoint x="720" y="175" />
+        <di:waypoint x="720" y="222" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12xvahb_di" bpmnElement="Flow_12xvahb">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="440" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09elr3b_di" bpmnElement="Flow_09elr3b">
+        <di:waypoint x="740" y="117" />
+        <di:waypoint x="810" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_08mft2c_di" bpmnElement="choose-flight">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1wey9l9_di" bpmnElement="Activity_0e47168">
+        <dc:Bounds x="640" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1yb1pkg_di" bpmnElement="Event_1yb1pkg">
+        <dc:Bounds x="702" y="222" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="675" y="265" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1khg8e0_di" bpmnElement="Activity_0a8m8k4">
+        <dc:Bounds x="440" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0et6g7f_di" bpmnElement="Event_0et6g7f">
+        <dc:Bounds x="982" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="965" y="145" width="69" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1l1m8b6_di" bpmnElement="Activity_1ptid0v">
+        <dc:Bounds x="810" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1ep2o0d_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="157" y="142" width="80" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0p3jsj6_di" bpmnElement="Event_1ggzm1c">
+        <dc:Bounds x="702" y="139" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

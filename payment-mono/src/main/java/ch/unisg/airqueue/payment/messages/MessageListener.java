@@ -1,5 +1,7 @@
 package ch.unisg.airqueue.payment.messages;
 
+import ch.unisg.airqueue.payment.commands.GetPaymentCommand;
+import ch.unisg.airqueue.payment.events.PaymentDoneEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,4 +1,4 @@
-package ch.unisg.airqueue.notification.messages;
+package ch.unisg.airqueue.orchestrator.commands;
 
 public class NotificationCommand {
     private String content;

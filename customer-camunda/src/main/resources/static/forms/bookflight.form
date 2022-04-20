@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 2,
+  "components": [
+    {
+      "label": "Start Port",
+      "type": "textfield",
+      "id": "Field_15t5obk",
+      "key": "startPort",
+      "description": "Which airport should the flight depart from?",
+      "validate": {
+        "regularExpressionPattern": "(.*[A-Z]){3}",
+        "required": true
+      }
+    },
+    {
+      "label": "Destination Port",
+      "type": "textfield",
+      "id": "Field_0kovrrx",
+      "key": "destinationPort",
+      "description": "Which airport should the flight arrive at?",
+      "validate": {
+        "regularExpressionPattern": "(.*[a-z]){3}",
+        "required": true
+      }
+    },
+    {
+      "label": "Budget",
+      "type": "textfield",
+      "id": "Field_038mvi3",
+      "key": "flightBudget",
+      "description": "What is your ticket budget? ",
+      "validate": {
+        "required": false,
+        "regularExpressionPattern": "^(?:0|[1-9][0-9]*)\\\\.[0-9]+$"
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_0l4rtjt"
+}
