@@ -6,8 +6,6 @@ import java.util.UUID;
 @Entity(name="OrderEntity")
 public class Booking {
 
-    // TODO: perhaps we have to rename to id instead of bookingId
-    // TODO: add real consumer and ticket
     @Id
     protected String bookingId;
     @OneToOne(cascade= CascadeType.ALL, fetch = FetchType.EAGER)

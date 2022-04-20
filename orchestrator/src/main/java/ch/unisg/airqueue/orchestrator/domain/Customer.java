@@ -9,7 +9,6 @@ import javax.persistence.Id;
 @Entity
 public class Customer {
 
-    // TODO: check whether rename to id is necessary
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
