@@ -1,4 +1,4 @@
-package ch.unisg.airqueue.orchestrator.adapters;
+package ch.unisg.airqueue.orchestrator.messages;
 
 import ch.unisg.airqueue.orchestrator.domain.Booking;
 import ch.unisg.airqueue.orchestrator.messages.Message;
